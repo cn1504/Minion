@@ -88,7 +88,8 @@ void Renderer::renderGUI()
 	glViewport(0, 0, width, height);
 	glDisable(GL_DEPTH_TEST);
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 	glEnable(GL_BLEND);
 	glDisable(GL_ALPHA_TEST);
 
@@ -96,12 +97,13 @@ void Renderer::renderGUI()
 	glUseProgram(guiShader->programId);
 
 	for (auto comp : guiComponents) {
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, comp->getTextureID());
-		glUniform1i(glGetUniformLocation(guiShader->programId, SU_GUI_TEXTURE), 0);
-		glUniform1f(glGetUniformLocation(guiShader->programId, SU_GUI_OPACITY), comp->opacity);
 
-		comp->render();
+		auto texture = comp->getTexture();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture->getID());
+		glUniform1i(glGetUniformLocation(guiShader->programId, SU_GUI_TEXTURE), 0);
+
+		comp->render(&(*guiShader));
 	}
 
 	glDisable(GL_BLEND);

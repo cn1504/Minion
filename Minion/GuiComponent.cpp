@@ -23,10 +23,14 @@ GuiComponent::GuiComponent(GLuint x, GLuint y, GLuint width, GLuint height)
 }
 
 
-void GuiComponent::render() 
+void GuiComponent::render(Shader* shader)
 {
 	if (hidden)
 		return;
+
+	glUniform1f(glGetUniformLocation(shader->programId, SU_GUI_OPACITY), opacity);
+	glUniform2f(glGetUniformLocation(shader->programId, SU_GUI_TEXTURE_OFFSET), getTexture()->getOffsetS(), getTexture()->getOffsetT());
+	glUniform2f(glGetUniformLocation(shader->programId, SU_GUI_TEXTURE_DIMENSIONS), getTexture()->getSpriteWidth(), getTexture()->getSpriteHeight());
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, quad_vertexbuffer);
@@ -134,4 +138,14 @@ void GuiComponent::onMouseClickAndDrag(MouseEvent& me)
 void GuiComponent::onMouseClickRelease(MouseEvent& me)
 {
 	dragged = false;
+}
+
+void GuiComponent::onUpdate()
+{
+	if (hidden)
+		return;
+
+	for (auto listener : updateListeners) {
+		listener();
+	}
 }

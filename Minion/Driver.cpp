@@ -6,7 +6,6 @@
 #include "Renderer.h"
 #include "Time.h"
 #include "Shader.h"
-#include "Text.h"
 #include "InputHandler.h"
 #include "GuiManager.h"
 
@@ -171,6 +170,8 @@ int main(void)
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 
+		Time.waitForUpdate();
+
 		/* Poll for and process events */
 		glfwPollEvents();
 
@@ -178,7 +179,7 @@ int main(void)
 		glfwGetCursorPos(window, &x, &y);
 		Input.onUpdate(window, vec2((float)x, (float)y));
 
-		Time.waitForUpdate();
+		GUI.onUpdate();
 	}
 
 	Settings.save();

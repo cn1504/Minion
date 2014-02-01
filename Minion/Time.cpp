@@ -58,9 +58,5 @@ void Timer::waitForUpdate()
 
 		// Sync the sleep timer
 		frameEnd = frameStart + duration_cast<high_resolution_clock::duration>(frameDuration);
-
-#ifdef DEBUG_MODE
-		cout << "FPS: " << fps << " " << setprecision(6) << 1.0f / fps << endl;
-#endif
 	}
 }

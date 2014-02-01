@@ -123,11 +123,11 @@
     <ClCompile Include="GuiButton.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
     <ClCompile Include="GuiManager.cpp" />
+    <ClCompile Include="GuiText.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
@@ -140,13 +140,13 @@
     <ClInclude Include="GuiButton.h" />
     <ClInclude Include="GuiComponent.h" />
     <ClInclude Include="GuiManager.h" />
+    <ClInclude Include="GuiText.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StdInc.h" />
-    <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>

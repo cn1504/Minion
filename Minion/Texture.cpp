@@ -1,7 +1,8 @@
 #include "Texture.h"
 
 
-Texture::Texture(const string& pngFilename, GLuint width, GLuint height)
+Texture::Texture(const string& pngFilename, GLuint width, GLuint height, 
+	GLfloat offsetS, GLfloat offsetT, GLfloat spriteWidth, GLfloat spriteHeight)
 {	
 	vector<unsigned char> image;
 
@@ -36,6 +37,11 @@ Texture::Texture(const string& pngFilename, GLuint width, GLuint height)
 	this->width = width;
 	this->height = height;
 	filename = pngFilename;
+
+	s = offsetS;
+	t = offsetT;
+	this->spriteWidth = spriteWidth;
+	this->spriteHeight = spriteHeight;
 }
 
 

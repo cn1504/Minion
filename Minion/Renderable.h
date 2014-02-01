@@ -1,9 +1,10 @@
 #pragma once
+#include "Shader.h"
 
 class Renderable {
 public:
 	virtual ~Renderable() {}
-	virtual void render() = 0;
+	virtual void render(Shader* shader) = 0;
 };
 
 /*

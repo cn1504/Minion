@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE == 0
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	// Hides the console window
@@ -42,3 +42,5 @@
 #define SHADER_GUI_FRAG_FILE "gui.frag"
 #define SU_GUI_TEXTURE "compTexture"
 #define SU_GUI_OPACITY "opacity"
+#define SU_GUI_TEXTURE_OFFSET "textureOffset"
+#define SU_GUI_TEXTURE_DIMENSIONS "textureDimensions"

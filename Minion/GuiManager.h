@@ -1,8 +1,9 @@
 #pragma once
 
 #include "StdInc.h"
-#include "GuiButton.h"
 #include "GuiComponent.h"
+#include "GuiButton.h"
+#include "GuiText.h"
 #include "Renderer.h"
 
 class GuiManager
@@ -18,6 +19,7 @@ public:
 	void addComponent(GuiComponent* comp) { components.push_back(comp); }
 
 	void onWindowResize();
+	void onUpdate();
 };
 
 extern GuiManager GUI;

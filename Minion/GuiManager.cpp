@@ -19,6 +19,16 @@ GuiManager::~GuiManager()
 
 void GuiManager::loadComponents(Renderer* renderer) {
 	
+	auto consolas64 = make_shared<GuiFont>(
+		new Texture("Assets/Consolas64.png", 1024, 1024), 
+		16, 64, 64, 36, 0);
+	auto consolas32 = make_shared<GuiFont>(
+		new Texture("Assets/Consolas32.png", 512, 512),
+		16, 32, 32, 18, 0);
+	auto consolas16 = make_shared<GuiFont>(
+		new Texture("Assets/Consolas16.png", 256, 256),
+		16, 16, 16, 9, 0);
+
 	/* GUI Window Components */
 	GuiComponent* background = new GuiComponent(0, 0, stoi(Settings[SETTING_WINDOW_WIDTH]), stoi(Settings[SETTING_WINDOW_HEIGHT]));
 	background->setTexture(new Texture("Assets/background.png", 2560, 1600));
@@ -26,6 +36,40 @@ void GuiManager::loadComponents(Renderer* renderer) {
 		background->setDimensions(0, 0, stoi(Settings[SETTING_WINDOW_WIDTH]), stoi(Settings[SETTING_WINDOW_HEIGHT]));
 	};
 	renderer->add(background);
+
+
+	GuiText* fontTest = new GuiText(consolas64, 20, 20, 50, 50);
+	fontTest->setText("Testing my font glyph renderer.\nThis is all being rendered from 1 string.");
+	fontTest->resetPosition = [=]() {
+		fontTest->setDimensions(20, 20, 50, 50);
+	};
+	fontTest->opacity = 0.9f;
+	renderer->add(fontTest);
+
+	GuiText* fontTest2 = new GuiText(consolas32, 20, 200, 50, 50);
+	fontTest2->setText("Consolas 24pt, 32x32 test.\nSpacing seems a little odd though.");
+	fontTest2->resetPosition = [=]() {
+		fontTest2->setDimensions(20, 200, 50, 50);
+	};
+	fontTest2->opacity = 0.9f;
+	renderer->add(fontTest2);
+
+	GuiText* fpsDisplay = new GuiText(consolas16,
+		10,
+		stoi(Settings[SETTING_WINDOW_HEIGHT]) - 20,
+		17, 17);
+	fpsDisplay->opacity = 0.9f;
+	fpsDisplay->resetPosition = [=]() {
+		fpsDisplay->setDimensions(
+			10,
+			stoi(Settings[SETTING_WINDOW_HEIGHT]) - 20,
+			17, 17);
+	};
+	fpsDisplay->addUpdateListener([=]() {
+		string msg = "FPS: " + to_string(Time.fps);
+		fpsDisplay->setText(msg);
+	});
+	renderer->add(fpsDisplay);
 
 
 	GuiButton* quitButton = new GuiButton(
@@ -177,5 +221,13 @@ void GuiManager::onWindowResize()
 		if (comp->resetPosition) {
 			comp->resetPosition();
 		}
+	}
+}
+
+
+void GuiManager::onUpdate()
+{
+	for (auto comp : components) {
+		comp->onUpdate();
 	}
 }

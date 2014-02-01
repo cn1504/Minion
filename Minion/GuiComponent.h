@@ -15,6 +15,7 @@ public:
 class GuiComponent : public Renderable
 {
 protected:
+	vector<function<void()>> updateListeners;
 	vector<function<void(const MouseEvent&)>> mouseInListeners;
 	vector<function<void(const MouseEvent&)>> mouseOutListeners;
 	vector<function<void(const MouseEvent&)>> mouseClickAndDragListeners;
@@ -36,13 +37,13 @@ public:
 	GuiComponent(GLuint x, GLuint y, GLuint width, GLuint height);
 	virtual ~GuiComponent() {};
 
-	GLuint getTextureID() { return texture->getID(); }
+	virtual Texture* getTexture() { return &(*texture); }
 	void setTexture(Texture* texture);
 	void setDimensions(GLuint x, GLuint y, GLuint width, GLuint height);
 
 	function<void()> resetPosition;
-	
-	virtual void render();
+
+	virtual void render(Shader* shader);
 
 	float opacity;
 	vec2 getPosition() { return vec2(x, y); }
@@ -51,6 +52,7 @@ public:
 	void hide() { hidden = true; }
 	void show() { hidden = false; }
 
+	void addUpdateListener(function<void()> func) { updateListeners.push_back(func); }
 	void addMouseInListener(function<void(const MouseEvent&)> func) { mouseInListeners.push_back(func); }
 	void addMouseOutListener(function<void(const MouseEvent&)> func) { mouseOutListeners.push_back(func); }
 	void addMouseClickAndDragListener(function<void(const MouseEvent&)> func) { mouseClickAndDragListeners.push_back(func); }
@@ -64,5 +66,7 @@ public:
 	vec2 prevDragDelta;
 	void onMouseClickAndDrag(MouseEvent& me);
 	void onMouseClickRelease(MouseEvent& me);
+
+	void onUpdate();
 };
 
