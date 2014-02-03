@@ -66,7 +66,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\Libraries\Include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\Libraries\Include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\..\Libraries\Lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,25 +116,22 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="D:\Libraries\Include\LoadPNG\lodepng.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="GuiButton.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
     <ClCompile Include="GuiManager.cpp" />
     <ClCompile Include="GuiText.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="D:\Libraries\glew-1.10.0\lib\Release\x64\glew32s.lib" />
-    <Library Include="D:\Libraries\glfw-3.0.3.bin.WIN64\lib-msvc110\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
